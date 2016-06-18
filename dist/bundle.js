@@ -70,7 +70,6 @@
 
   var URL = 'https://www.youtube.com/watch?v=jPZZAavOugo';
   var YOUTUBE_API_KEY = 'AIzaSyDc9FiNUYZ68YCCv90rdQiRjDtl_I4Y3l0';
-  // const YOUTUBE_API_KEY = 'AIzaSyDSyhVknRK5OA5zNvjoNYAPzFe9K-T3wO4'
   var MAX_RESULTS = 100;
   var BASE_API_URL = 'https://www.googleapis.com/youtube/v3/commentThreads?part=id%2Csnippet&maxResults=' + MAX_RESULTS + '&key=' + YOUTUBE_API_KEY;
 
@@ -125,10 +124,14 @@
 
     function getData(apiUrl) {
       window.fetch(apiUrl).then(function (res) {
-        return res.json();
-      }).then(function (_ref3) {
-        var nextPageToken = _ref3.nextPageToken;
-        var items = _ref3.items;
+        return res.status === 200 && res.json();
+      }).then(function (json) {
+        if (!json) {
+          document.getElementById('loading').innerHTML = 'Something went wrong..';
+          return null;
+        }
+        var nextPageToken = json.nextPageToken;
+        var items = json.items;
 
         commenters = _extends({}, commenters, getCommenters(items));
         if (nextPageToken) {
