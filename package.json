@@ -2,9 +2,10 @@
   "name": "youtube-giveaway-calculator",
   "version": "1.0.0",
   "description": "Calculate who won your giveaway (based on commenters)",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,18 @@
   },
   "homepage": "https://github.com/ahstro/youtube-giveaway-calculator#readme",
   "dependencies": {
-    "youtube-comment-api": "^2.1.1"
+    "get-youtube-id": "https://github.com/ahstro/get-youtube-id"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015-rollup": "^1.1.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "eslint": "^2.13.0",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-plugin-promise": "^1.3.2",
+    "eslint-plugin-standard": "^1.3.2",
+    "rollup": "^0.31.2",
+    "rollup-plugin-babel": "^2.5.1",
+    "rollup-plugin-node-resolve": "^1.7.0"
   }
 }

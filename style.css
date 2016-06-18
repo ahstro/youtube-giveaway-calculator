@@ -1,0 +1,36 @@
+:root {
+  font-famliy: Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+#main {
+  justify-content: center;
+   flex-direction: column;
+      align-items: center;
+          display: flex;
+           height: 100vh;
+}
+
+#main > :not(:last-child) {
+  margin-bottom: .4rem;
+}
+
+#url,
+#main,
+#result,
+#button,
+#loading {
+  font-family: Helvetica, sans-serif;
+  font-weight: 100;
+    font-size: 2rem;
+}
+
+#url,
+#button {
+  font-size: 1.2rem;
+}
+
+#result,
+#loading {
+  display: none;
+}
