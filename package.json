@@ -1,0 +1,27 @@
+{
+  "name": "youtube-giveaway-calculator",
+  "version": "1.0.0",
+  "description": "Calculate who won your giveaway (based on commenters)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahstro/youtube-giveaway-calculator.git"
+  },
+  "keywords": [
+    "youtube",
+    "giveaway",
+    "comments"
+  ],
+  "author": "ahstro <hi@ahst.ro> (http://ahst.ro)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahstro/youtube-giveaway-calculator/issues"
+  },
+  "homepage": "https://github.com/ahstro/youtube-giveaway-calculator#readme",
+  "dependencies": {
+    "youtube-comment-api": "^2.1.1"
+  }
+}
