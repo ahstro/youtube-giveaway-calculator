@@ -1,6 +1,5 @@
 import getIdFromUrl from 'get-youtube-id'
 
-const URL = 'https://www.youtube.com/watch?v=jPZZAavOugo'
 const YOUTUBE_API_KEY = 'AIzaSyDc9FiNUYZ68YCCv90rdQiRjDtl_I4Y3l0'
 const MAX_RESULTS = 100
 const BASE_API_URL = `https://www.googleapis.com/youtube/v3/commentThreads?part=id%2Csnippet&maxResults=${MAX_RESULTS}&key=${YOUTUBE_API_KEY}`
@@ -54,7 +53,14 @@ function loading () {
 
 function getWinner () {
   loading()
-  const videoId = getIdFromUrl(URL)
+  const url = document.getElementById('url').value
+  const videoId = getIdFromUrl(url)
+
+  if (!videoId) {
+    document.getElementById('loading').innerHTML = 'Invalid URL'
+    return
+  }
+
   let commenters = {}
 
   function getData (apiUrl) {
