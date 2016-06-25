@@ -77,6 +77,7 @@ function getWinner () {
           console.log(Object.keys(commenters).length, ' potential winners so far')
           getData(getApiUrl(videoId, nextPageToken))
         } else {
+          console.log(Object.keys(commenters).length, ' potential winners: ', commenters)
           const result = getResult(commenters)
           console.log('A winrar is ', result.name, '! ', result.url)
           setResult(result)
