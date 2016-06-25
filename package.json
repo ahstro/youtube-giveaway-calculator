@@ -1,6 +1,6 @@
 {
   "name": "youtube-giveaway-calculator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Calculate who won your giveaway (based on commenters)",
   "main": "src/index.js",
   "scripts": {

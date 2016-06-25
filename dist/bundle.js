@@ -68,7 +68,6 @@
     return target;
   };
 
-  var URL = 'https://www.youtube.com/watch?v=jPZZAavOugo';
   var YOUTUBE_API_KEY = 'AIzaSyDc9FiNUYZ68YCCv90rdQiRjDtl_I4Y3l0';
   var MAX_RESULTS = 100;
   var BASE_API_URL = 'https://www.googleapis.com/youtube/v3/commentThreads?part=id%2Csnippet&maxResults=' + MAX_RESULTS + '&key=' + YOUTUBE_API_KEY;
@@ -119,7 +118,14 @@
 
   function getWinner() {
     loading();
-    var videoId = getIdFromUrl(URL);
+    var url = document.getElementById('url').value;
+    var videoId = getIdFromUrl(url);
+
+    if (!videoId) {
+      document.getElementById('loading').innerHTML = 'Invalid URL';
+      return;
+    }
+
     var commenters = {};
 
     function getData(apiUrl) {
@@ -138,6 +144,7 @@
           console.log(Object.keys(commenters).length, ' potential winners so far');
           getData(getApiUrl(videoId, nextPageToken));
         } else {
+          console.log(Object.keys(commenters).length, ' potential winners: ', commenters);
           var result = getResult(commenters);
           console.log('A winrar is ', result.name, '! ', result.url);
           setResult(result);
