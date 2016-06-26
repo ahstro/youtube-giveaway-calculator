@@ -5,18 +5,23 @@
     <title>YouTube Giveaway Calculator</title>
     <meta name="author" content="ahstro">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="https://necolas.github.io/normalize.css/4.1.1/normalize.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100' rel='stylesheet' type='text/css'>
   </head>
   <body>
 
     <main id="main">
+      <div id="pretext" class="small"></div>
       <div id="text">
         YouTube Giveaway Calculator
       </div>
-      <input placeholder="Enter YouTube URL..." id="url" type="url"></input>
-      <button id="button">
-        Get a winner
-      </button>
+      <div id="posttext" class="small"></div>
+      <div class="search-form">
+        <input placeholder="Enter YouTube URL..." id="url" type="url"></input>
+        <button id="button">
+          Get a winner
+        </button>
+      </div>
     </main>
 
     <script src="index.js"></script>
