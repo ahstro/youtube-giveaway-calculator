@@ -1,5 +1,6 @@
 import getIdFromUrl from 'get-youtube-id'
 import LOADING_MESSAGES from './loading-messages'
+import './style.css'
 
 const YOUTUBE_API_KEY = 'AIzaSyDc9FiNUYZ68YCCv90rdQiRjDtl_I4Y3l0'
 const MAX_RESULTS = 100
