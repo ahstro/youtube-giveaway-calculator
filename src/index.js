@@ -11,6 +11,7 @@ function getCommenters (comments) {
   // appear once, since the id/key is overwritten if
   // it occurs multiple times
   return comments.reduce((t, {
+    id: commentId,
     snippet: {
       topLevelComment: {
         snippet: {
@@ -19,7 +20,13 @@ function getCommenters (comments) {
         },
       },
     },
-  }) => ({ ...t, [authorChannelUrl]: authorDisplayName }), {})
+  }) => ({
+    ...t,
+    [authorChannelUrl]: {
+      name: authorDisplayName,
+      commentId,
+    },
+  }), {})
 }
 
 function getApiUrl (videoId, pageToken) {
@@ -28,7 +35,8 @@ function getApiUrl (videoId, pageToken) {
     : `${BASE_API_URL}&videoId=${videoId}`
 }
 
-function setResult ({ name, url }) {
+function setResult ({ name, commentId }, videoUrl) {
+  const url = `${videoUrl}&lc=${commentId}`
   const markup = `<a href=${url}>${name}</a>`
   const elem = document.getElementById('result')
   elem.innerHTML = `The winner is: ${markup}`
@@ -39,11 +47,7 @@ function setResult ({ name, url }) {
 function getResult (commenters) {
   const keys = Object.keys(commenters)
   const rand = Math.floor(Math.random() * keys.length)
-  const key = keys[rand]
-  return {
-    name: commenters[key],
-    url: key,
-  }
+  return commenters[keys[rand]]
 }
 
 function loading () {
@@ -79,8 +83,12 @@ function getWinner () {
         } else {
           console.log(Object.keys(commenters).length, ' potential winners: ', commenters)
           const result = getResult(commenters)
-          console.log('A winrar is ', result.name, '! ', result.url)
-          setResult(result)
+          if (!result) {
+            document.getElementById('loading').innerHTML = 'Something went wrong..'
+            return
+          }
+          console.log('A winrar is ', result.name, '! ', result.commentId)
+          setResult(result, url)
         }
       })
   }
