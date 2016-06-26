@@ -28,3 +28,11 @@
 #button {
   font-size: 1.2rem;
 }
+
+#text {
+  line-height: 2rem;
+}
+
+#text.loading {
+  font-size: .5em;
+}

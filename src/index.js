@@ -1,4 +1,5 @@
 import getIdFromUrl from 'get-youtube-id'
+import LOADING_MESSAGES from './loading-messages'
 
 const YOUTUBE_API_KEY = 'AIzaSyDc9FiNUYZ68YCCv90rdQiRjDtl_I4Y3l0'
 const MAX_RESULTS = 100
@@ -46,8 +47,11 @@ function getRandom (obj = []) {
   return obj[key]
 }
 
+function showRandomLoadingMessage () {
+  setText(`${getRandom(LOADING_MESSAGES)}...`, 'loading')
+}
+
 function getWinner () {
-  setText('Loading...')
   const videoUrl = getUrlFromInput()
   const videoId = getIdFromUrl(videoUrl)
 
@@ -59,6 +63,7 @@ function getWinner () {
   let commenters = {}
 
   function getData (apiUrl) {
+    showRandomLoadingMessage()
     window.fetch(apiUrl)
       .then(res => res.status === 200 && res.json())
       .then(json => {
