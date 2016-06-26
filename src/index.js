@@ -31,10 +31,10 @@ const getCommenters = (comments = []) => comments.reduce((t, {
 
 const getUrlFromInput = _ => document.getElementById('url').value
 
-function setText (html = '', className = '') {
-  const elem = document.getElementById('text')
-  elem.innerHTML = html
-  elem.className = className
+function setText (html = '', pre = '', post = '') {
+  document.getElementById('pretext').innerHTML = pre
+  document.getElementById('text').innerHTML = html
+  document.getElementById('posttext').innerHTML = post
 }
 
 const getApiUrl = (videoId = '', pageToken) => pageToken
@@ -49,7 +49,7 @@ function getRandom (obj = []) {
 }
 
 function showRandomLoadingMessage () {
-  setText(`${getRandom(LOADING_MESSAGES)}...`, 'loading')
+  setText('Loading', '', `${getRandom(LOADING_MESSAGES)}...`)
 }
 
 function getWinner () {
@@ -85,7 +85,7 @@ function getWinner () {
             return
           }
           console.log('A winrar is ', name, '! ', commentId)
-          setText(`The winner is: <a href="${videoUrl}&lc=${commentId}">${name}</a>`)
+          setText(`<a class="link" href="${videoUrl}&lc=${commentId}">${name}</a>`, 'The winner is:', 'Congratulations!')
         }
       })
   }

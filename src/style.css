@@ -1,6 +1,15 @@
 :root {
-  font-famliy: Helvetica, sans-serif;
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
     font-size: 16px;
+        color: #333;
+}
+
+#url,
+#button {
+  font-family: inherit;
+  font-weight: inherit;
+        color: inherit;
 }
 
 #main {
@@ -11,28 +20,71 @@
            height: 100vh;
 }
 
-#main > :not(:last-child) {
-  margin-bottom: .4rem;
-}
-
-#url,
 #main,
-#text,
-#button {
-  font-family: Helvetica, sans-serif;
-  font-weight: 100;
-    font-size: 2rem;
+#text {
+  font-size: 3rem;
 }
 
-#url,
-#button {
+.search-form {
+  display: flex;
+   height: 1.8rem;
+}
+
+.search-form > * {
   font-size: 1.2rem;
+    padding: 0 .5em;
+     border: 1px solid #c6c6c6;
+}
+
+.search-form > :first-child {
+  border-bottom-left-radius: .1em;
+     border-top-left-radius: .1em;
+}
+
+.search-form > :last-child {
+  border-bottom-right-radius: .1em;
+     border-top-right-radius: .1em;
+}
+
+#url::placeholder {
+  color: #b5b5b5;
+}
+
+#button {
+  background-color: #f8f8f8;
+       border-left: 0;
+            cursor: pointer;
+             color: #989898;
+}
+
+#button:hover {
+  background-color: #f0f0f0;
+             color: #585858;
+}
+
+#button:active {
+  background-color: #e9e9e9;
+}
+
+.link {
+  text-decoration: none;
+      font-weight: normal;
+            color: #cc181e;
+}
+
+.link:hover {
+  text-decoration: underline;
 }
 
 #text {
-  line-height: 2rem;
+  text-align: center;
 }
 
-#text.loading {
+#posttext {
+  margin-bottom: .6em;
+}
+
+.small {
   font-size: .5em;
+     height: 1em;
 }
