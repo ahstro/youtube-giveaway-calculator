@@ -4,64 +4,55 @@ const YOUTUBE_API_KEY = 'AIzaSyDc9FiNUYZ68YCCv90rdQiRjDtl_I4Y3l0'
 const MAX_RESULTS = 100
 const BASE_API_URL = `https://www.googleapis.com/youtube/v3/commentThreads?part=id%2Csnippet&maxResults=${MAX_RESULTS}&key=${YOUTUBE_API_KEY}`
 
-function getCommenters (comments) {
-  // Reduce the comments array to an map of ids to
-  // display names by destructuring the comment objects
-  // This has the added bonus only letting each user
-  // appear once, since the id/key is overwritten if
-  // it occurs multiple times
-  return comments.reduce((t, {
-    id: commentId,
-    snippet: {
-      topLevelComment: {
-        snippet: {
-          authorDisplayName,
-          authorChannelUrl,
-        },
+// Reduce the comments array to an map of ids to
+// display names by destructuring the comment objects
+// This has the added bonus only letting each user
+// appear once, since the id/key is overwritten if
+// it occurs multiple times
+const getCommenters = (comments = []) => comments.reduce((t, {
+  id: commentId,
+  snippet: {
+    topLevelComment: {
+      snippet: {
+        authorDisplayName,
+        authorChannelUrl,
       },
     },
-  }) => ({
-    ...t,
-    [authorChannelUrl]: {
-      name: authorDisplayName,
-      commentId,
-    },
-  }), {})
+  },
+}) => ({
+  ...t,
+  [authorChannelUrl]: {
+    name: authorDisplayName,
+    commentId,
+  },
+}), {})
+
+const getUrlFromInput = _ => document.getElementById('url').value
+
+function setText (html = '', className = '') {
+  const elem = document.getElementById('text')
+  elem.innerHTML = html
+  elem.className = className
 }
 
-function getApiUrl (videoId, pageToken) {
-  return pageToken
-    ? `${BASE_API_URL}&videoId=${videoId}&pageToken=${pageToken}`
-    : `${BASE_API_URL}&videoId=${videoId}`
-}
+const getApiUrl = (videoId = '', pageToken) => pageToken
+  ? `${BASE_API_URL}&videoId=${videoId}&pageToken=${pageToken}`
+  : `${BASE_API_URL}&videoId=${videoId}`
 
-function setResult ({ name, commentId }, videoUrl) {
-  const url = `${videoUrl}&lc=${commentId}`
-  const markup = `<a href=${url}>${name}</a>`
-  const elem = document.getElementById('result')
-  elem.innerHTML = `The winner is: ${markup}`
-  document.getElementById('loading').style.display = 'none'
-  elem.style.display = 'block'
-}
-
-function getResult (commenters) {
-  const keys = Object.keys(commenters)
+function getRandom (obj = []) {
+  const keys = Object.keys(obj)
   const rand = Math.floor(Math.random() * keys.length)
-  return commenters[keys[rand]]
-}
-
-function loading () {
-  document.getElementById('result').style.display = 'none'
-  document.getElementById('loading').style.display = 'block'
+  const key = keys[rand]
+  return obj[key]
 }
 
 function getWinner () {
-  loading()
-  const url = document.getElementById('url').value
-  const videoId = getIdFromUrl(url)
+  setText('Loading...')
+  const videoUrl = getUrlFromInput()
+  const videoId = getIdFromUrl(videoUrl)
 
   if (!videoId) {
-    document.getElementById('loading').innerHTML = 'Invalid URL'
+    setText('Invalid URL')
     return
   }
 
@@ -72,8 +63,8 @@ function getWinner () {
       .then(res => res.status === 200 && res.json())
       .then(json => {
         if (!json) {
-          document.getElementById('loading').innerHTML = 'Something went wrong..'
-          return null
+          setText('Something went wrong..')
+          return
         }
         const { nextPageToken, items } = json
         commenters = { ...commenters, ...getCommenters(items) }
@@ -82,13 +73,13 @@ function getWinner () {
           getData(getApiUrl(videoId, nextPageToken))
         } else {
           console.log(Object.keys(commenters).length, ' potential winners: ', commenters)
-          const result = getResult(commenters)
-          if (!result) {
-            document.getElementById('loading').innerHTML = 'Something went wrong..'
+          const { name = 'Someone', commentId } = getRandom(commenters) || {}
+          if (!commentId) {
+            setText('Something went wrong..')
             return
           }
-          console.log('A winrar is ', result.name, '! ', result.commentId)
-          setResult(result, url)
+          console.log('A winrar is ', name, '! ', commentId)
+          setText(`The winner is: <a href="${videoUrl}&lc=${commentId}">${name}</a>`)
         }
       })
   }
