@@ -17,9 +17,8 @@
 
 #url,
 #main,
-#result,
-#button,
-#loading {
+#text,
+#button {
   font-family: Helvetica, sans-serif;
   font-weight: 100;
     font-size: 2rem;
@@ -30,7 +29,10 @@
   font-size: 1.2rem;
 }
 
-#result,
-#loading {
-  display: none;
+#text {
+  line-height: 2rem;
+}
+
+#text.loading {
+  font-size: .5em;
 }
