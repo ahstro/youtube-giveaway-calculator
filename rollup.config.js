@@ -1,4 +1,5 @@
 import babel from 'rollup-plugin-babel'
+import uglify from 'rollup-plugin-uglify'
 import nodeResolve from 'rollup-plugin-node-resolve'
 
 export default {
@@ -7,6 +8,7 @@ export default {
   plugins: [
     babel(),
     nodeResolve({ browser: true }),
+    uglify(),
   ],
   format: 'iife',
 }
