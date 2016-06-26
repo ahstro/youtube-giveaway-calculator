@@ -4,7 +4,7 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 
 export default {
   entry: 'src/index.js',
-  dest: 'dist/bundle.js',
+  dest: 'dist/index.js',
   plugins: [
     babel(),
     nodeResolve({ browser: true }),
