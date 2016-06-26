@@ -49,7 +49,12 @@ function getRandom (obj = []) {
 }
 
 function showRandomLoadingMessage () {
-  setText('Loading', '', `${getRandom(LOADING_MESSAGES)}...`)
+  const oldMsg = document.getElementById('posttext').innerHTML
+  let newMsg = ''
+  while (!newMsg || newMsg === oldMsg) {
+    newMsg = `${getRandom(LOADING_MESSAGES)}...`
+  }
+  setText('Loading', '', newMsg)
 }
 
 function getWinner () {
